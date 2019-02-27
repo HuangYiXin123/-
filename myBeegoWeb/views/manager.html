@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>管理员系统</title>
+<link rel="stylesheet" type="text/css" href="static/css/home.css" />
+</head>
+
+<body>
+<!--head-->
+   <div class="header">
+   		<div class="inner">
+   			<div class="logo">
+   <a href="manager.html" title="管理员页面页面"><img src="static/img/logo.png" width="526" height="116"/></a>
+   			</div>
+   			<div class="headlink">
+   				<h2>你好啊！管理员</h2>
+   				
+                &nbsp;|&nbsp;
+			  <a href="login.html">▶注销</a>
+   				
+   				
+   			</div>
+   		</div>
+   </div>
+<!--head end-->
+   <!--middle-->
+<div class="middle" style="text-align:center">
+   <div class="cont">
+   <!--菜单-->
+       <div class="class">
+         <ul>
+           <h3 style="color:#FFF;">功能分类</h3>
+           <a href="#" class="net"><li>乘客信息</li></a>
+           <a href="#" class="_all2"><li>司机信息</li></a>
+           <a href="#" class="_all3"><li>未接订单</li></a>
+           <a href="#" class="_all4"><li>完成订单</li></a>
+           <a href="#" class="_all5"><li>查看留言</li></a>
+         </ul>
+       </div>
+       <!--菜单 end-->
+       <!--指南-->
+     <div class="class_a">
+      <!--乘客信息-->
+           <div class="all1">
+             <h4 style="color:#fff">乘客信息</h4>
+             <form runat="server" method="POST" action="">
+              <table width="600" height="100" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+                <tr>
+                  <th width="20%">乘客名称</th>
+                  <th width="20%">乘客密码</th>
+                  <th width="20%">乘客电话</th>
+                  <th width="40%">身份证号</th>
+              </tr>
+              {{range .Client}}
+              <tr>
+                  <input name="client"><td>{{.ClName}}</td>
+                  <td> {{.ClPassword}}</td>
+                  <td>{{.ClPhone}}</td>
+                  <td>{{.ClIdentificationCard}}</td>
+              </tr>
+                  {{end}}
+              </table>
+			 </form>                     
+			</div>
+  <!--乘客信息 end--> 
+  <!--司机信息-->
+           <div class="all2">
+			<h4 style="color:#fff">司机信息</h4>
+			<form runat="server" method="POST" action="">
+        <table width="800" height="100" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+          <tr>
+            <th width="15%">司机名称</th>
+            <th width="15%">司机密码</th>
+            <th width="15%">司机电话</th>
+            <th width="25%">身份证号</th>
+            <th width="15%">车子型号</th>
+            <th width="15%">车子载客量</th>
+        </tr>
+        {{range .Driver}}
+        <tr>
+            <td>{{.DrName}}</td>
+            <td> {{.DrPassword}}</td>
+            <td>{{.DrPhone}}</td>
+            <td>{{.DrIdentificationCard}}</td>
+            <td>{{.CarBrand}}</td>
+            <td>{{.CarLoad}}</td>
+        </tr>
+            {{end}}
+        </table>
+ </form>                     
+		   </div>
+   <!--司机信息 end--> 
+    <!--未接订单信息--> 
+           <div class="all3">
+           <h4 style="color:#fff">未被接订单</h4>
+           <form runat="server" method="POST" action="">
+              <table width="800" height="100" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+                <tr>
+                  <th width="15%">订单编号</th>
+                  <th width="15%">客户姓名</th>
+                  <th width="15%">起始地</th>
+                  <th width="15%">目的地</th>
+                  <th width="15%">下订单时间</th>
+                  <th width="25%">备注</th>
+              </tr>
+              {{range .Order1}}
+              <tr>
+                  <td>{{.OrId}}</td>
+                  <td> {{.Client.ClName}}</td>
+                  <td>{{.Orgin}}</td>
+                  <td>{{.Destination}}</td>
+                  <td>{{.BeginTime.Format "2006-01-02"}}</td>
+                  <td>{{.Node}}</td>
+              </tr>
+                  {{end}}
+              </table>
+       </form>             
+           </div>
+         <!--未接订单信息 end--> 
+          <!--交易记录-->    
+           <div class="all4" id="all4">
+           <h4 style="color:#fff">已完成订单</h4>
+           <form runat="server" method="POST" action="">
+            <table width="900" height="100" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+              <tr>
+                <th width="12%">订单编号</th>
+                <th width="12%">客户姓名</th>
+                <th width="12">司机姓名</th>
+                <th width="12%">起始地</th>
+                <th width="12%">目的地</th>
+                <th width="12%">订单时间</th>
+                <th width="12%">交易费用</th>
+                <th width="16%">备注</th>
+            </tr>
+            {{range .Order2}}
+            <tr>
+                <td>{{.OrId}}</td>
+                <td> {{.Client.ClName}}</td>
+                <td> {{.Driver.DrName}}</td>
+                <td>{{.Orgin}}</td>
+                <td>{{.Destination}}</td>
+                <td>{{.BeginTime.Format "2006-01-02"}}</td>
+                <td>{{.Cost}}</td>
+                <td>{{.Node}}</td>
+            </tr>
+                {{end}}
+            </table>
+     </form>
+           
+           </div>
+           
+            <!--交易记录 end--> 
+             <!--联系我们--> 
+           <div class="all5">
+          <h4 style="color:#fff">☏&nbsp;&nbsp;留言信息</h4>
+          <table width="600" height="150" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+                <tr>
+                  <th width="10%">留言号</th>
+                  <th width="15%">留言者</th>
+                  <th width="75%">留言内容</th>
+              </tr>
+              {{range .Message}}
+              <tr>
+                  <td>{{.MessageId}}</td>
+                  <td> {{.WriteBy}}</td>
+                  <td>{{.Node}}</td>
+              </tr>
+                  {{end}}
+              </table>
+       
+          </div>
+             <!--联系我们 end--> 
+         </div>
+          <!--指南 end-->
+   </div>
+   </div>
+   
+<div style="text-align:center">
+</div>
+</body>
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/home.js"></script>
+
+</html>

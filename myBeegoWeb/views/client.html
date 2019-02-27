@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>乘客系统</title>
+<link rel="stylesheet" type="text/css" href="static/css/home.css" />
+</head>
+<body>
+<!--head-->
+   <div class="header">
+   		<div class="inner">
+   			<div class="logo">
+   <a href="client.html" title="乘客页面"><img src="static/img/logo.png" width="526" height="116"/></a>
+   			</div>
+   			<div class="headlink">
+   				<h2>你好啊！{{.cl_name}}</h2>
+   				&nbsp;|&nbsp;
+   				<a href="cl_regist.html">注册</a>
+                &nbsp;|&nbsp;
+			  <a href="login.html">▶注销</a>
+   				
+   				
+   			</div>
+   		</div>
+   </div>
+<!--head end-->
+   <!--middle-->
+<div class="middle" style="text-align:center">
+   <div class="cont">
+   <!--菜单-->
+       <div class="class">
+         <ul>
+           <h3 style="color:#FFF;">功能分类</h3>
+           <a href="#" class="net"><li>打车预订</li></a>
+           <a href="#" class="_all2"><li>我的信息</li></a>
+           <a href="#" class="_all3"><li>我的消费记录</li></a>
+           <a href="#" class="_all4"><li>修改密码</li></a>
+           <a href="#" class="_all5"><li>联系我们</li></a>
+         </ul>
+       </div>
+       <!--菜单 end-->
+       <!--指南-->
+     <div class="class_a">
+      <!--打车申请-->
+           <div class="all1">
+             <h4 style="color:#fff">打车申请</h4>
+             <form method="POST" action="/client">
+             <table width="400" height="200" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+
+    <td width="120">起点:</td>
+    <td><input style="width:250px;background:none;" type="text" name="orgin" /><span>*</span></td>
+    <td width="120">终点:</td>
+    <td><input style="width:250px;background:none;" type="text" name="destination"/><span>*</span></td>
+  </tr>
+    
+    
+  <tr>
+    <td>备注:</td>
+    <td colspan="3">
+    <textarea placeholder="有需要请详细填写！" style="color:#FFF;outline:none;resize:none;width:670px;height:70px;border:0;background:none;"   name="nodeText" cols="0" rows="0">
+    </textarea>
+    </td>
+
+  </tr>
+</table>
+<div class="tom" style="margin-top:20px;">
+<input name="clear" style="width:80px;height:30px;" type="reset" value="重新输入" />
+
+<input name="play" style="width:80px;height:30px;" type="submit" value="开始打车" />
+
+</div>
+<span style="float:right;">注：标注*为必填项！</span>
+</form>                     
+   </div>
+  <!--打车申请 end--> 
+  <!--个人信息-->
+           <div class="all2">
+           <h4 style="color:#fff">我的信息</h4>
+           <table width="600" height="100" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+            <tr>
+              <th width="20%">我的名称</th>
+              <th width="20%">我的密码</th>
+              <th width="20%">我的电话</th>
+              <th width="40%">身份证号</th>
+          </tr>
+          <tr>
+              <td>{{.ClName}}</td>
+              <td> {{.ClPassword}}</td>
+              <td>{{.ClPhone}}</td>
+              <td>{{.ClIdentificationCard}}</td>
+          </tr>
+          </table>
+           </div>
+   <!--个人信息 end--> 
+    <!--我的消费记录--> 
+           <div class="all3">
+           <h4 style="color:#fff">我的消费记录</h4>
+           <table width="900" height="100" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+            <tr>
+              <th width="12%">订单编号</th>
+              <th width="12%">客户姓名</th>
+              <th width="12">司机姓名</th>
+              <th width="12%">起始地</th>
+              <th width="12%">目的地</th>
+              <th width="12%">订单时间</th>
+              <th width="12%">交易费用</th>
+              <th width="16%">备注</th>
+          </tr>
+          {{range .Order2}}
+          <tr>
+              <td>{{.OrId}}</td>
+              <td> {{.Client.ClName}}</td>
+              <td> {{.Driver.DrName}}</td>
+              <td>{{.Orgin}}</td>
+              <td>{{.Destination}}</td>
+              <td>{{.BeginTime.Format "2006-01-02"}}</td>
+              <td>{{.Cost}}</td>
+              <td>{{.Node}}</td>
+          </tr>
+              {{end}}
+          </table>
+           </div>
+         <!--消费记录 end--> 
+          <!--修改密码-->    
+           <div class="all4" id="all4">
+           <h4 style="color:#fff">修改密码</h4>
+           <form  method="POST" action="/skip">
+            <table width="300" height="150" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+              <tr>
+                <td width="100">原密码:</td>
+                <td width="200"><input style="width:250px;background:none" type="password" name="pwd" /></td>
+              </tr>
+              <tr>
+                <td width="100">新密码:</td>
+                <td width="200"><input style="width:250px;background:none" type="password" name="newPwd"/></td>
+              </tr>
+              <tr>
+                <td width="100">再次输入:</td>
+                <td width="200"><input style="width:250px;background:none" type="password" name="newPwd2"/></td>
+              </tr>
+            </table>
+            <div class="tom" >
+              <input name="changPassword" style="width:80px;height:30px;color: rgba(0, 0, 255, 0.445);background-color:aqua" type="submit" value="修改密码" />
+            </div>
+            
+            </form>
+           </div>
+           
+            <!--消息记录 end--> 
+             <!--联系我们--> 
+           <div class="all5">
+          <h4 style="color:#fff">☏&nbsp;&nbsp;给管理员留言(￣▽￣)~*</h4>
+          <form method="POST" action="/manager">
+            <table width="400" height="200" style="margin:auto;margin-top:50px;border:1px solid #FFF" border="1" cellpadding="0" cellspacing="0" >
+   
+   
+            <tr>
+              <td>留言:</td>
+              <td colspan="3">
+              <textarea placeholder="有需要请详细填写！" style="color:#FFF;outline:none;resize:none;width:670px;height:70px;border:0;background:none;"   name="messageText" cols="0" rows="0">
+              </textarea>
+              </td>
+
+            </tr>
+            </table>
+            <div class="tom" style="margin-top:20px;">
+            <input name="clear" style="width:80px;height:30px;background-color:rgb(40, 135, 179);color: #FFF" type="reset"  value="重新输入" />
+
+            <input name="play" style="width:80px;height:30px;background-color: rgb(40, 135, 179);color: #FFF" type="submit" value="留言提交" />
+
+            </div>
+            </form> 
+       
+          </div>
+             <!--联系我们 end--> 
+         </div>
+          <!--指南 end-->
+   </div>
+   </div>
+   
+<div style="text-align:center">
+</div>
+</body>
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/home.js"></script>
+
+</html>
